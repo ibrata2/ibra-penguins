@@ -1,0 +1,78 @@
+{
+  "name": "ibra-penguins",
+  "productName": "IBRA PENGUINS",
+  "version": "1.0.0",
+  "description": "IBRA PENGUINS — لعبة ألغاز البطاريق بدقة عالية",
+  "main": "main.cjs",
+  "type": "module",
+  "author": "إبراهيم الخزرجي",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "test": "node test/solve.test.mjs",
+    "dist": "electron-builder --win nsis --x64",
+    "dist:ci": "electron-builder --win nsis --x64 --publish never -c.win.signAndEditExecutable=true"
+  },
+  "devDependencies": {
+    "electron": "33.2.1",
+    "electron-builder": "25.1.8",
+    "resedit": "^2.0.3"
+  },
+  "build": {
+    "appId": "com.ibraprogram.ibrapenguins",
+    "productName": "IBRA PENGUINS",
+    "copyright": "© إبراهيم الخزرجي — IBRAPROGRAM",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.cjs",
+      "preload.cjs",
+      "index.html",
+      "styles.css",
+      "src/**/*",
+      "build/icon.png"
+    ],
+    "extraResources": [],
+    "extraFiles": [
+      {
+        "from": "levels",
+        "to": "levels",
+        "filter": [
+          "**/*.json"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "IBRA PENGUINS",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "artifactName": "IBRA-PENGUINS-Setup-${version}.exe",
+      "installerHeaderIcon": "build/icon.ico",
+      "language": "1025",
+      "installerLanguages": [
+        "ar_SA",
+        "en_US"
+      ],
+      "multiLanguageInstaller": true
+    },
+    "afterPack": "build/afterPack.cjs"
+  }
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IBRA PENGUINS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="build/icon.png">
+</head>
+<body>
+  <div id="stage">
+    <canvas id="game" width="1920" height="960"></canvas>
+    <div id="topbar">
+      <div id="levelTitle"></div>
+      <button id="btnMenu" class="pill gold">☰ <span data-t="menu"></span></button>
+    </div>
+    <div id="hud">
+      <div class="hud-left">
+        <button id="btnReset" class="round red" data-tip="resetHint">⟲</button>
+        <button id="btnHint" class="round green" data-tip="hintHint">?</button>
+        <div class="timer"><span>⏱</span><b id="timer">0:00</b></div>
+      </div>
+      <div id="speed" data-tip="speedHint">
+        <button data-s="0">❚❚</button><button data-s="1" class="on">▶</button><button data-s="2">▶▶</button><button data-s="3">▶▶▶</button>
+      </div>
+      <div id="cage" data-tip="savedHint"><div class="cage-ico"></div><b id="savedTxt">0/0</b></div>
+      <div id="trayWrap"><div id="tray"></div><div id="info"></div></div>
+      <canvas id="minimap" width="240" height="120"></canvas>
+    </div>
+    <div id="selbar" class="hidden">
+      <button data-a="rotate">↻</button><button data-a="power">⚡</button><button data-a="remove">✖</button>
+    </div>
+    <div id="screens"></div>
+    <div id="toast"></div>
+  </div>
+  <script type="module" src="src/ui/app.js"></script>
+</body>
+</html>

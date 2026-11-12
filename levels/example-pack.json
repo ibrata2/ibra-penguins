@@ -1,0 +1,28 @@
+{
+  "name": { "ar": "حزمة مثال", "en": "Example Pack" },
+  "theme": "ice",
+  "levels": [
+    {
+      "id": "example-1",
+      "name": { "ar": "مثال: الجسر والنابض", "en": "Example: Bridge & Spring" },
+      "tip": { "ar": "هذه مرحلة مثال من ملف JSON — عدّلها أو انسخها لتصنع مراحلك", "en": "An example level loaded from a JSON file — copy it to make your own" },
+      "theme": "ice",
+      "penguins": 12, "need": 9, "rate": 40, "time": 150,
+      "gadgets": { "bridge": 1, "spring": 1 },
+      "shapes": [
+        { "t": "rect", "x": 0, "y": 0, "w": 36, "h": 960, "mat": "ice" },
+        { "t": "rect", "x": 1884, "y": 0, "w": 36, "h": 960, "mat": "ice" },
+        { "t": "rect", "x": 0, "y": 760, "w": 800, "h": 200, "mat": "ice" },
+        { "t": "rect", "x": 980, "y": 760, "w": 940, "h": 200, "mat": "ice" },
+        { "t": "rect", "x": 800, "y": 930, "w": 180, "h": 30, "mat": "ice" },
+        { "t": "rect", "x": 1300, "y": 610, "w": 120, "h": 150, "mat": "snow", "r": 12 }
+      ],
+      "entry": { "x": 180, "y": 600, "dir": 1 },
+      "exit": { "x": 1700, "y": 760 },
+      "coins": [{ "x": 890, "y": 738 }, { "x": 1360, "y": 520 }],
+      "hazards": [{ "t": "spikes", "x": 800, "y": 900, "w": 180, "h": 30 }],
+      "decor": [{ "t": "pine", "x": 400, "y": 760, "s": 1 }, { "t": "iceRock", "x": 1600, "y": 760, "s": 0.7 }],
+      "solution": [{ "type": "bridge", "x": 890, "y": 768, "rot": 2 }, { "type": "spring", "x": 1220, "y": 760 }]
+    }
+  ]
+}
