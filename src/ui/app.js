@@ -17,7 +17,34 @@ const hud = $('#hud'), topbar = $('#topbar'), selbar = $('#selbar');
 const renderer = new Renderer(canvas);
 const audio = new Audio();
 const native = window.ibra || null;           // Electron bridge (preload.cjs)
-const VERSION = '1.0.0';
+let VERSION = '1.0.1';
+
+// ---------------- update check ----------------
+// Reads version.json from the project (edit that file to announce a new version).
+const UPDATE_URL = 'https://raw.githubusercontent.com/ibrata2/ibra-penguins/main/version.json';
+const upd = { state: 'checking', latest: null, url: 'https://t.me/ibraprogram' };
+const newer = (a, b) => { const x = a.split('.').map(Number), y = b.split('.').map(Number); for (let i = 0; i < 3; i++) { if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0); } return false; };
+async function checkUpdate() {
+  try {
+    const d = native?.checkUpdate ? await native.checkUpdate(UPDATE_URL) : await (await fetch(UPDATE_URL + '?t=' + Date.now(), { cache: 'no-store' })).json();
+    if (!d || !d.version) throw new Error('bad');
+    upd.latest = d.version; if (d.url) upd.url = d.url;
+    upd.state = newer(d.version, VERSION) ? 'new' : 'ok';
+  } catch { upd.state = 'fail'; }
+  renderUpdate();
+}
+function updateHtml() {
+  if (upd.state === 'checking') return `<span class="up chk">⟳ ${t('upChecking')}</span>`;
+  if (upd.state === 'ok') return `<span class="up ok">✔ ${t('upOk')}</span>`;
+  if (upd.state === 'new') return `<a href="#" class="up new" data-upd>⬇ ${t('upNew')} v${upd.latest}</a>`;
+  return `<span class="up fail">⚠ ${t('upFail')}</span>`;
+}
+function renderUpdate() {
+  document.querySelectorAll('.upd-slot').forEach((el) => {
+    el.innerHTML = updateHtml();
+    const a = el.querySelector('[data-upd]'); if (a) a.onclick = (e) => { e.preventDefault(); openUrl(upd.url); };
+  });
+}
 
 // ---------------- scaling ----------------
 let scale = 1;
@@ -125,8 +152,9 @@ function titleScreen() {
       <button class="btn small red" id="tQuit">${t('quit')}</button>
     </div>
     <div class="credit">${t('credits')} · <a href="#" id="lTg">t.me/ibraprogram</a> · <a href="#" id="lTt">TikTok @ibraprogram</a></div>
-    <div class="ver">v${VERSION}</div>`, 'dim', 'title');
+    <div class="ver"><span class="upd-slot"></span> · v${VERSION}</div>`, 'dim', 'title');
   sc.style.background = 'radial-gradient(ellipse at 50% 40%, #0000 0%, #0005 70%)';
+  renderUpdate();
   $('#tPlay').onclick = () => { audio.init(); profilesScreen(); };
   $('#tHelp').onclick = () => helpScreen(titleScreen);
   $('#tAbout').onclick = () => aboutScreen(titleScreen);
@@ -144,8 +172,9 @@ function aboutScreen(back) {
       <button class="btn small" id="aTg">✈ ${t('telegram')}<br><span>t.me/ibraprogram</span></button>
       <button class="btn small red" id="aTt">♪ ${t('tiktok')}<br><span>@ibraprogram</span></button>
     </div>
-    <div class="ab-ver">${t('version')} ${VERSION}</div>
+    <div class="ab-ver">${t('version')} ${VERSION} · <span class="upd-slot"></span></div>
     <div class="row"><button class="btn gold" id="aBack">${t('back')}</button></div></div>`);
+  renderUpdate();
   $('#aTg').onclick = () => openUrl('https://t.me/ibraprogram');
   $('#aTt').onclick = () => openUrl('https://www.tiktok.com/@ibraprogram');
   $('#aBack').onclick = back;
@@ -656,6 +685,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<
 // ---------------- boot ----------------
 (async function boot() {
   Save.load();
+  try { if (native?.version) VERSION = await native.version(); } catch { /* keep default */ }
   setLang(Save.options.lang);
   audio.setVolumes(Save.options.music, Save.options.sfx);
   applyStaticText();
@@ -663,6 +693,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<
   await document.fonts?.ready;
   await loadPacks();
   titleScreen();
+  checkUpdate();
   document.addEventListener('pointerdown', () => { audio.init(); audio.ctx?.resume(); if (!audio.timer && audio.track) { const tr = audio.track; audio.track = null; audio.play(tr); } }, { once: true });
   requestAnimationFrame(frame);
   window.__ibra = { S, startLevel, ALL_LEVELS, Save, mapScreen, openEditor };   // for debugging / tests

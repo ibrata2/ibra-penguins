@@ -1,7 +1,7 @@
 {
   "name": "ibra-penguins",
   "productName": "IBRA PENGUINS",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "IBRA PENGUINS — لعبة ألغاز البطاريق بدقة عالية",
   "main": "main.cjs",
   "type": "module",

@@ -43,6 +43,12 @@ ipcMain.handle('mine:save', (_e, list) => { fs.writeFileSync(myLevelsFile(), JSO
 ipcMain.handle('folder:open', () => { fs.mkdirSync(userLevels(), { recursive: true }); shell.openPath(userLevels()); });
 ipcMain.on('fullscreen', (_e, on) => win && win.setFullScreen(!!on));
 ipcMain.on('quit', () => app.quit());
+ipcMain.handle('app:version', () => app.getVersion());
+ipcMain.handle('update:check', async (_e, url) => {
+  const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), 8000);
+  try { const r = await fetch(url + '?t=' + Date.now(), { signal: ctl.signal, cache: 'no-store' }); if (!r.ok) throw new Error(r.status); return await r.json(); }
+  finally { clearTimeout(tm); }
+});
 ipcMain.on('open-url', (_e, url) => { if (/^https?:\/\//.test(url)) shell.openExternal(url); });
 
 app.whenReady().then(createWindow);

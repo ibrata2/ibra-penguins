@@ -6,5 +6,7 @@ contextBridge.exposeInMainWorld('ibra', {
   openLevelsFolder: () => ipcRenderer.invoke('folder:open'),
   setFullscreen: (on) => ipcRenderer.send('fullscreen', on),
   quit: () => ipcRenderer.send('quit'),
+  version: () => ipcRenderer.invoke('app:version'),
+  checkUpdate: (url) => ipcRenderer.invoke('update:check', url),
   openUrl: (u) => ipcRenderer.send('open-url', u),
 });

@@ -91,7 +91,12 @@ html[dir=ltr] #info { direction: ltr; }
 .title-btns .btn { min-width: 380px; font-size: 36px; }
 .credit { position: absolute; bottom: 22px; left: 0; right: 0; text-align: center; color: #cfe6ff; font-size: 22px; font-weight: 700; text-shadow: 0 2px 4px #000; }
 .credit a { color: #ffd76a; text-decoration: none; margin: 0 10px; }
-.ver { position: absolute; bottom: 22px; inset-inline-end: 30px; color: #8fb3d9; font-size: 18px; }
+.ver { position: absolute; bottom: 18px; inset-inline-end: 30px; color: #cfe6ff; font-size: 20px; font-weight: 700; text-shadow: 0 2px 4px #000; }
+.up { padding: 3px 14px; border-radius: 20px; background: #0008; }
+.up.ok { color: #86efac; } .up.chk { color: #cfe6ff; } .up.fail { color: #fca5a5; }
+.up.new { color: #3a2006; background: linear-gradient(180deg, #ffe99a, #e0a419); text-decoration: none; font-weight: 900; animation: upPulse 1.2s infinite alternate; }
+@keyframes upPulse { to { box-shadow: 0 0 18px #ffd76a; } }
+.ab-ver .up { background: #0001; }
 
 /* profiles */
 .slots { display: grid; grid-template-columns: repeat(2, 400px); gap: 24px; }
