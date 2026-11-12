@@ -21,7 +21,7 @@
   "build": {
     "appId": "com.ibraprogram.ibrapenguins",
     "productName": "IBRA PENGUINS",
-    "copyright": "© إبراهيم الخزرجي — IBRAPROGRAM",
+    "copyright": "برمجة وتطوير إبراهيم الخزرجي — t.me/ibraprogram",
     "directories": {
       "output": "dist",
       "buildResources": "build"

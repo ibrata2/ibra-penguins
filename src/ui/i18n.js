@@ -21,7 +21,8 @@ export const STR = {
   storyText: ['صديقنا <b>ثلجي</b> ضاع في حديقة الحيوانات الكبيرة! 🐧<br>آخر مرة شافوه قرب كهوف الخفافيش...<br>ساعد البطاريق يعبرون كل مناطق الحديقة حتى يلقون صديقهم.<br>كل مرحلة تخبرك كم بطريق لازم توصله لباب الخروج.',
     'Our friend <b>Snowy</b> went missing in the big zoo! 🐧<br>He was last seen near the Bat Caves...<br>Help the penguins cross every area of the zoo to find their friend.<br>Each level tells you how many penguins must reach the exit.'],
   endText: ['🎉 لقيتوا ثلجي! 🎉<br>البطاريق رجعت سوا للبركة، وكل الحديقة احتفلت.<br>شكراً لأنك أنقذت الجميع!', '🎉 You found Snowy! 🎉<br>The penguins are back together at the pond and the whole zoo celebrates.<br>Thanks for saving everyone!'],
-  credits: ['تصميم وتطوير: إبراهيم الخزرجي', 'Design & development: Ibrahim Al-Khazraji'],
+  credits: ['برمجة وتطوير إبراهيم الخزرجي', 'Programming & development: Ibrahim Al-Khazraji'],
+  about: ['حول', 'About'], aboutGame: ['لعبة ألغاز البطاريق — أوصل البطاريق إلى باب الخروج باستخدام الأدوات', 'A penguin puzzle game — guide the penguins to the exit with gadgets'], version: ['الإصدار', 'Version'], telegram: ['قناة التليكرام', 'Telegram channel'], tiktok: ['تيك توك', 'TikTok'],
   friendName: ['ثلجي', 'Snowy'],
   myLevels: ['مراحلي', 'My Levels'], extraLevels: ['مراحل إضافية', 'Extra Levels'],
   // editor

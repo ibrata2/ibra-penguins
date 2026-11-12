@@ -121,7 +121,7 @@ function titleScreen() {
     <div class="logo"><div class="ib">IBRA</div><div class="pg">PENGUINS</div><div class="ar">بطاريق إبرا</div></div>
     <div class="title-btns">
       <button class="btn green" id="tPlay">${t('play')}</button>
-      <div class="row"><button class="btn small" id="tHelp">${t('help')}</button><button class="btn small" id="tOpt">${t('options')}</button><button class="btn small gold" id="tEd">${t('editor')}</button></div>
+      <div class="row"><button class="btn small" id="tHelp">${t('help')}</button><button class="btn small" id="tOpt">${t('options')}</button><button class="btn small gold" id="tEd">${t('editor')}</button><button class="btn small" id="tAbout">${t('about')}</button></div>
       <button class="btn small red" id="tQuit">${t('quit')}</button>
     </div>
     <div class="credit">${t('credits')} · <a href="#" id="lTg">t.me/ibraprogram</a> · <a href="#" id="lTt">TikTok @ibraprogram</a></div>
@@ -129,11 +129,26 @@ function titleScreen() {
   sc.style.background = 'radial-gradient(ellipse at 50% 40%, #0000 0%, #0005 70%)';
   $('#tPlay').onclick = () => { audio.init(); profilesScreen(); };
   $('#tHelp').onclick = () => helpScreen(titleScreen);
+  $('#tAbout').onclick = () => aboutScreen(titleScreen);
   $('#tOpt').onclick = () => optionsScreen(titleScreen);
   $('#tEd').onclick = () => openEditor();
   $('#tQuit').onclick = () => (native ? native.quit() : window.close());
   $('#lTg').onclick = (e) => { e.preventDefault(); openUrl('https://t.me/ibraprogram'); };
   $('#lTt').onclick = (e) => { e.preventDefault(); openUrl('https://www.tiktok.com/@ibraprogram'); };
+}
+function aboutScreen(back) {
+  show(`<div class="panel about"><img src="build/icon.png" alt="">
+    <h1>IBRA PENGUINS</h1><div class="ab-sub">${t('aboutGame')}</div>
+    <div class="ab-credit">${t('credits')}</div>
+    <div class="ab-links">
+      <button class="btn small" id="aTg">✈ ${t('telegram')}<br><span>t.me/ibraprogram</span></button>
+      <button class="btn small red" id="aTt">♪ ${t('tiktok')}<br><span>@ibraprogram</span></button>
+    </div>
+    <div class="ab-ver">${t('version')} ${VERSION}</div>
+    <div class="row"><button class="btn gold" id="aBack">${t('back')}</button></div></div>`);
+  $('#aTg').onclick = () => openUrl('https://t.me/ibraprogram');
+  $('#aTt').onclick = () => openUrl('https://www.tiktok.com/@ibraprogram');
+  $('#aBack').onclick = back;
 }
 function openUrl(u) { native?.openUrl ? native.openUrl(u) : window.open(u, '_blank'); }
 
@@ -420,12 +435,13 @@ function pauseMenu() {
   S.paused = true;
   const sc = show(`<div class="panel col" style="min-width:520px"><h1>${t('menu')}</h1>
     <button class="btn green" id="pResume">${t('resume')}</button><button class="btn" id="pRestart">${t('restart')}</button>
-    <button class="btn" id="pOpt">${t('options')}</button><button class="btn" id="pHelp">${t('help')}</button>
+    <button class="btn" id="pOpt">${t('options')}</button><button class="btn" id="pHelp">${t('help')}</button><button class="btn" id="pAbout">${t('about')}</button>
     <button class="btn gold" id="pMap">${S.testFromEditor ? t('editor') : t('map')}</button></div>`);
   $('#pResume').onclick = resume;
   $('#pRestart').onclick = () => startLevel(S.level);
   $('#pOpt').onclick = () => optionsScreen(pauseMenu);
   $('#pHelp').onclick = () => helpScreen(pauseMenu);
+  $('#pAbout').onclick = () => aboutScreen(pauseMenu);
   $('#pMap').onclick = () => { S.paused = false; S.testFromEditor ? openEditor(S.level) : mapScreen(); };
 }
 function resume() { S.paused = false; hideScreens(); }
