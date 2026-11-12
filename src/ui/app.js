@@ -36,7 +36,7 @@ async function checkUpdate() {
 function updateHtml() {
   if (upd.state === 'checking') return `<span class="up chk">⟳ ${t('upChecking')}</span>`;
   if (upd.state === 'ok') return `<span class="up ok">✔ ${t('upOk')}</span>`;
-  if (upd.state === 'new') return `<a href="#" class="up new" data-upd>⬇ ${t('upNew')} v${upd.latest}</a>`;
+  if (upd.state === 'new') return `<a href="#" class="up new" data-upd>⬇ ${t('upNew')} <bdi>v${upd.latest}</bdi></a>`;
   return `<span class="up fail">⚠ ${t('upFail')}</span>`;
 }
 function renderUpdate() {
@@ -152,7 +152,7 @@ function titleScreen() {
       <button class="btn small red" id="tQuit">${t('quit')}</button>
     </div>
     <div class="credit">${t('credits')} · <a href="#" id="lTg">t.me/ibraprogram</a> · <a href="#" id="lTt">TikTok @ibraprogram</a></div>
-    <div class="ver"><span class="upd-slot"></span> · v${VERSION}</div>`, 'dim', 'title');
+    <div class="ver"><span class="upd-slot"></span> · <bdi>v${VERSION}</bdi></div>`, 'dim', 'title');
   sc.style.background = 'radial-gradient(ellipse at 50% 40%, #0000 0%, #0005 70%)';
   renderUpdate();
   $('#tPlay').onclick = () => { audio.init(); profilesScreen(); };
@@ -172,7 +172,7 @@ function aboutScreen(back) {
       <button class="btn small" id="aTg">✈ ${t('telegram')}<br><span>t.me/ibraprogram</span></button>
       <button class="btn small red" id="aTt">♪ ${t('tiktok')}<br><span>@ibraprogram</span></button>
     </div>
-    <div class="ab-ver">${t('version')} ${VERSION} · <span class="upd-slot"></span></div>
+    <div class="ab-ver">${t('version')} <bdi>${VERSION}</bdi> · <span class="upd-slot"></span></div>
     <div class="row"><button class="btn gold" id="aBack">${t('back')}</button></div></div>`);
   renderUpdate();
   $('#aTg').onclick = () => openUrl('https://t.me/ibraprogram');
