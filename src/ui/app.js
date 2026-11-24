@@ -17,12 +17,12 @@ const hud = $('#hud'), topbar = $('#topbar'), selbar = $('#selbar');
 const renderer = new Renderer(canvas);
 const audio = new Audio();
 const native = window.ibra || null;           // Electron bridge (preload.cjs)
-let VERSION = '1.0.1';
+let VERSION = '1.0.2';
 
 // ---------------- update check ----------------
 // Reads version.json from the project (edit that file to announce a new version).
 const UPDATE_URL = 'https://raw.githubusercontent.com/ibrata2/ibra-penguins/main/version.json';
-const upd = { state: 'checking', latest: null, url: 'https://t.me/ibraprogram' };
+const upd = { state: 'checking', latest: null, url: 'https://ibraprogram.netlify.app/' };
 const newer = (a, b) => { const x = a.split('.').map(Number), y = b.split('.').map(Number); for (let i = 0; i < 3; i++) { if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0); } return false; };
 async function checkUpdate() {
   try {
@@ -151,7 +151,7 @@ function titleScreen() {
       <div class="row"><button class="btn small" id="tHelp">${t('help')}</button><button class="btn small" id="tOpt">${t('options')}</button><button class="btn small gold" id="tEd">${t('editor')}</button><button class="btn small" id="tAbout">${t('about')}</button></div>
       <button class="btn small red" id="tQuit">${t('quit')}</button>
     </div>
-    <div class="credit">${t('credits')} · <a href="#" id="lTg">t.me/ibraprogram</a> · <a href="#" id="lTt">TikTok @ibraprogram</a></div>
+    <div class="credit">${t('credits')} · <a href="#" id="lWeb">ibraprogram.netlify.app</a> · <a href="#" id="lTg">t.me/ibraprogram</a> · <a href="#" id="lTt">TikTok @ibraprogram</a></div>
     <div class="ver"><span class="upd-slot"></span> · <bdi>v${VERSION}</bdi></div>`, 'dim', 'title');
   sc.style.background = 'radial-gradient(ellipse at 50% 40%, #0000 0%, #0005 70%)';
   renderUpdate();
@@ -161,6 +161,7 @@ function titleScreen() {
   $('#tOpt').onclick = () => optionsScreen(titleScreen);
   $('#tEd').onclick = () => openEditor();
   $('#tQuit').onclick = () => (native ? native.quit() : window.close());
+  $('#lWeb').onclick = (e) => { e.preventDefault(); openUrl('https://ibraprogram.netlify.app/'); };
   $('#lTg').onclick = (e) => { e.preventDefault(); openUrl('https://t.me/ibraprogram'); };
   $('#lTt').onclick = (e) => { e.preventDefault(); openUrl('https://www.tiktok.com/@ibraprogram'); };
 }
@@ -168,6 +169,7 @@ function aboutScreen(back) {
   show(`<div class="panel about"><img src="build/icon.png" alt="">
     <h1>IBRA PENGUINS</h1><div class="ab-sub">${t('aboutGame')}</div>
     <div class="ab-credit">${t('credits')}</div>
+    <button class="btn green ab-web" id="aWeb">🌐 ${t('website')}<br><span>ibraprogram.netlify.app</span></button>
     <div class="ab-links">
       <button class="btn small" id="aTg">✈ ${t('telegram')}<br><span>t.me/ibraprogram</span></button>
       <button class="btn small red" id="aTt">♪ ${t('tiktok')}<br><span>@ibraprogram</span></button>
@@ -175,6 +177,7 @@ function aboutScreen(back) {
     <div class="ab-ver">${t('version')} <bdi>${VERSION}</bdi> · <span class="upd-slot"></span></div>
     <div class="row"><button class="btn gold" id="aBack">${t('back')}</button></div></div>`);
   renderUpdate();
+  $('#aWeb').onclick = () => openUrl('https://ibraprogram.netlify.app/');
   $('#aTg').onclick = () => openUrl('https://t.me/ibraprogram');
   $('#aTt').onclick = () => openUrl('https://www.tiktok.com/@ibraprogram');
   $('#aBack').onclick = back;

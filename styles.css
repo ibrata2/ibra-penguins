@@ -200,3 +200,6 @@ html[dir=rtl] .stamp { animation-name: stampR; }
 .ab-links .btn { min-width: 300px; line-height: 1.3; }
 .ab-links span { font-size: 20px; opacity: .9; direction: ltr; display: inline-block; }
 .ab-ver { font-size: 20px; margin-bottom: 14px; opacity: .7; }
+.ab-web { min-width: 620px; line-height: 1.3; margin-bottom: 16px; }
+.ab-web span { font-size: 20px; direction: ltr; display: inline-block; }
+.ab-ver .up.ok { color: #15803d; } .ab-ver .up.fail { color: #b91c1c; } .ab-ver .up.chk { color: #1e3a8a; }

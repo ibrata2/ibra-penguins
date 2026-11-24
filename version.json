@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
-  "url": "https://t.me/ibraprogram",
-  "notes": { "ar": "فحص التحديث التلقائي", "en": "Automatic update check" }
+  "version": "1.0.2",
+  "url": "https://ibraprogram.netlify.app/",
+  "notes": { "ar": "رابط موقع برامجي بشاشة حول", "en": "Apps website link in About" }
 }

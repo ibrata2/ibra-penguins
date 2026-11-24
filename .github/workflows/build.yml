@@ -1,7 +1,11 @@
 name: Build Windows installer
 
+# Builds the installer and publishes a GitHub Release (tag v<version from package.json>)
+# whenever the version in package.json changes on main, on a v* tag, or by hand.
 on:
   push:
+    branches: [main]
+    paths: [package.json]
     tags: ['v*']
   workflow_dispatch:
 
@@ -20,14 +24,23 @@ jobs:
       - run: npm ci
       - name: Check every level is solvable
         run: npm test
+      - name: Read version
+        id: v
+        shell: bash
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
       - name: Build NSIS installer
         run: npx electron-builder --win nsis --x64 --publish never
       - uses: actions/upload-artifact@v4
         with:
           name: IBRA-PENGUINS-Setup
           path: dist/*.exe
-      - name: Attach to GitHub release
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/*.exe
+          tag_name: v${{ steps.v.outputs.version }}
+          name: IBRA PENGUINS v${{ steps.v.outputs.version }}
+          make_latest: true
+          files: dist/IBRA-PENGUINS-Setup-${{ steps.v.outputs.version }}.exe
+          body: |
+            IBRA PENGUINS v${{ steps.v.outputs.version }}
+            برمجة وتطوير إبراهيم الخزرجي — https://ibraprogram.netlify.app/
